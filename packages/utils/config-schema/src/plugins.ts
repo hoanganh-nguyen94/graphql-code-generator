@@ -102,6 +102,11 @@ export const relevantConfigurations: PluginConfig[] = [
     pluginName: 'typescript-document-nodes',
   },
   {
+    file: '../../plugins/typescript/native-document-nodes/src/index.ts',
+    identifier: 'TypeScriptDocumentNodesRawPluginConfig',
+    pluginName: 'native-document-nodes',
+  },
+  {
     file: '../../plugins/java/apollo-android/src/plugin.ts',
     identifier: 'JavaApolloAndroidPluginConfig',
     pluginName: 'java-apollo-android',
