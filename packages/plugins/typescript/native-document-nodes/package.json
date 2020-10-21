@@ -1,5 +1,5 @@
 {
-  "name": "@graphql-codegen/native-document-nodes",
+  "name": "@ngha/native-document-nodes",
   "version": "1.17.8",
   "description": "GraphQL Code Generator plugin for generating TypeScript modules with embedded GraphQL document nodes",
   "repository": {
