@@ -1,52 +1,3 @@
-export const CommentsPageComment = `
-    fragment CommentsPageComment on Comment {
-  id
-  postedBy {
-    login
-    html_url
-  }
-  createdAt
-  content
-}
-    `;
-export const VoteButtons = `
-    fragment VoteButtons on Entry {
-  score
-  vote {
-    vote_value
-  }
-}
-    `;
-export const RepoInfo = `
-    fragment RepoInfo on Entry {
-  createdAt
-  repository {
-    description
-    stargazers_count
-    open_issues_count
-  }
-  postedBy {
-    html_url
-    login
-  }
-}
-    `;
-export const FeedEntry = `
-    fragment FeedEntry on Entry {
-  id
-  commentCount
-  repository {
-    full_name
-    html_url
-    owner {
-      avatar_url
-    }
-  }
-  ...VoteButtons
-  ...RepoInfo
-}
-    ${VoteButtons}
-${RepoInfo}`;
 export const QueryonCommentAddedDocs = `
     subscription onCommentAdded($repoFullName: String!) {
   commentAdded(repoFullName: $repoFullName) {
@@ -88,7 +39,16 @@ export const QueryCommentDocs = `
     }
   }
 }
-    ${CommentsPageComment}`;
+    fragment CommentsPageComment on Comment {
+  id
+  postedBy {
+    login
+    html_url
+  }
+  createdAt
+  content
+}
+`;
 export const QueryCurrentUserForProfileDocs = `
     query CurrentUserForProfile {
   currentUser {
@@ -106,7 +66,20 @@ export const QueryFeedDocs = `
     ...FeedEntry
   }
 }
-    ${FeedEntry}`;
+    fragment FeedEntry on Entry {
+  id
+  commentCount
+  repository {
+    full_name
+    html_url
+    owner {
+      avatar_url
+    }
+  }
+  ...VoteButtons
+  ...RepoInfo
+}
+`;
 export const QuerysubmitRepositoryDocs = `
     mutation submitRepository($repoFullName: String!) {
   submitRepository(repoFullName: $repoFullName) {
@@ -120,7 +93,16 @@ export const QuerysubmitCommentDocs = `
     ...CommentsPageComment
   }
 }
-    ${CommentsPageComment}`;
+    fragment CommentsPageComment on Comment {
+  id
+  postedBy {
+    login
+    html_url
+  }
+  createdAt
+  content
+}
+`;
 export const QueryvoteDocs = `
     mutation vote($repoFullName: String!, $type: VoteType!) {
   vote(repoFullName: $repoFullName, type: $type) {
