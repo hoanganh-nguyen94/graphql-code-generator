@@ -117,10 +117,15 @@ export const plugin: PluginFunction<TypeScriptDocumentNodesRawPluginConfig> = (
   const visitor = new TypeScriptDocumentNodesVisitor(schema, allFragments, config, documents);
   const visitorResult = visit(allAst, { leave: visitor });
 
+  let rawValue = [...visitorResult.definitions.filter(t => typeof t === 'string')].join('\n').replace(/gql`/gi, '`');
+
+  allFragments.forEach(x => {
+    const rex = new RegExp('\\${' + (config.fragmentPrefix || '') + x.name + (config.fragmentSuffix || '') + '}', 'gm');
+    rawValue = rawValue.replace(rex, x.node.loc.source.body);
+  });
+
   return {
-    content: [visitor.fragments, ...visitorResult.definitions.filter(t => typeof t === 'string')]
-      .join('\n')
-      .replace(/gql`/gi, '`'),
+    content: rawValue,
   };
 };
 
